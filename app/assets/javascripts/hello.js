@@ -101,6 +101,13 @@ searcher = {
       if(organization.name.search(reg_q) != -1){
         that.results.push(organization);
       }
+      if(organization.address.search(reg_q) != -1){
+        that.results.push(organization);
+      }
+      if(organization.services_offered.search(reg_q) != -1){
+        that.results.push(organization);
+      }
+      this.results = _.uniq(this.results);
     });
     return this.results;
   },
@@ -134,7 +141,6 @@ $(document).ready(function(){
   $('#inputSearch').change(function(event){
     event.preventDefault();
     var cad = $(this).val();
-    console.log(cad);
     if(cad.length > 1){
       searcher.exec(cad);
     }

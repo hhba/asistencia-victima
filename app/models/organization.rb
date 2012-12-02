@@ -41,4 +41,16 @@ class Organization
   def address
     self.addresses.first.postal
   end
+
+  def services_offered
+    self.services.join(", ")
+  end
+
+  def latitude
+    addresses.first.latitude
+  end
+
+  def longitude
+    addresses.first.longitude
+  end
 end

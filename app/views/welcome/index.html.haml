@@ -14,7 +14,7 @@
     = f.input :observations, :label => "Observaciones", :as => :text
     = f.button :submit, :value => "Crear organization"
 
-#marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address])}}
+#marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address, :services_offered, :latitude, :longitude])}}
 #map_canvas
 
 %script#infowindowTemplate{:type => "text/template"}
@@ -58,4 +58,8 @@
     %article
       %ul
         %li
-          {{name}}
+          %img{:src => "/{{icon}}"}
+          %br
+          {{name}} - {{services_offered}} - {{address}}
+          %br
+          %a{:href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
