@@ -15,7 +15,7 @@ group :assets do
   gem 'zurb-foundation'
 end
 
-group :deploy do
+group :deployment do
   gem 'capistrano'
 end
 
