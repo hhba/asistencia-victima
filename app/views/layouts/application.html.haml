@@ -76,28 +76,27 @@
             %p
             Si tenés una duda o sugerencia, contactate con nosotros.
           %li#simple4Tab
-            %p
-              Los personas que integran este proyecto que desarrollado en el hackaton ''Desarrollando América Latina 2012'' celebrado los días 1 y 2 de diciembre de 2012 son:
-            %ul.disc
-              %li
-                %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
-                = succeed "Ejecutivo" do
-                  %br/
-                del proyecto Mapa de asistencia a las victimas
-              %li
-                %a{:href => "https://twitter.com/malev"} Marcos Vanetta
-                = succeed "Ejecutivo" do
-                  %br/
-                del proyecto Mapa de asistencia a las victimas
-              %li
-                %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
-                = succeed "Ejecutiva" do
-                  %br/
-                del proyecto Mapa de asistencia a las victimas
-              %li
+            .row
+              .twelve.columns
+                %p
+                  Los personas que integran este proyecto que desarrollado en el hackaton ''Desarrollando América Latina 2012'' celebrado los días 1 y 2 de diciembre de 2012 son:
+            .row
+              .six.columns
+                = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
+                %br/
                 %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
-                = succeed "Ingeniera." do
-                  %br/
-                Analista de datos procesados
+              .six.columns
+                = link_to image_tag("https://si0.twimg.com/profile_images/2261749243/nuevo_perfil_reasonably_small.png"), "https://twitter.com/malev"
+                %br/
+                %a{:href => "https://twitter.com/malev"} Marcos Vanetta
+            .row
+              .six.columns
+                = link_to image_tag("https://si0.twimg.com/profile_images/2229361063/pollatos_reasonably_small.jpg"), "https://twitter.com/pollatos"
+                %br/
+                %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
+              .six.columns
+                = link_to image_tag("https://si0.twimg.com/profile_images/2902551273/b39ce76a07c56f9b896d5397602879a1_bigger.jpeg", :size => "128x128"), "https://twitter.com/latanitaw"
+                %br/
+                %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCzQ0CFb-_BoezIVuEFbtkFeSCAOsVcaK8&sensor=true&language=es"
     = javascript_include_tag "application"

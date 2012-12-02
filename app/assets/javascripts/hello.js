@@ -110,7 +110,7 @@ searcher = {
     $.each(this.results, function(index, result){
       output = output + Mustache.render(that.resultsTemplate, result);
     });
-    $("#results").html(output);
+    $("#results").html("<h4>Resultados</h4>" + output);
   },
   initialize: function(){
     this.organizations = $("#marker-information").data("organizations");
