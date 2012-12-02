@@ -16,9 +16,10 @@ set -e
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
 ENVIRONMENT=development
-APP_ROOT=/var/www/app
+APP_ROOT=/home/malev/apps/asistencia-victima/
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 CMD="unicorn -D -E $ENVIRONMENT -c $APP_ROOT/config/unicorn.rb"
+AS_USER=malev
 #INIT_CONF=$APP_ROOT/config/unicorn.rb
 action="$1"
 set -u
