@@ -52,6 +52,8 @@
         %li
           Documentación: {{documentation}}
         %li
+          Servicios: {{services_offered}}
+        %li
           Observaciones: {{observations}}
 %script#resultsTemplate{:type => "text/template"}
   %section.infowindow
@@ -62,4 +64,4 @@
           %br
           {{name}} - {{services_offered}} - {{address}}
           %br
-          %a{:href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
+          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa

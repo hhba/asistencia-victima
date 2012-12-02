@@ -145,4 +145,11 @@ $(document).ready(function(){
       searcher.exec(cad);
     }
   });
+  $("a.organization").live("click", function(event){
+    event.preventDefault();
+    var $this = $(this);
+    console.log($this);
+    newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
+    map.setCenter(newCenter);
+  });
 });
