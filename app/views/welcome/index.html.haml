@@ -1,10 +1,26 @@
+= content_for :add_organization do
+  %p
+    Si eres una institución interesada en colaborar en este servicio, añade tu información de contacto la siguiente formulario.
+  = simple_form_for @organization, :url => "/" do |f|
+    = f.input :name, :label => "Nombre de la organización"
+    = f.input :state, :label => "Provincia"
+    = f.input :town, :label => "Ciudad"
+    = f.input :jurisdiction, :label => "Jurisdicción"
+    = f.input :phone, :label => "Teléfono"
+    = f.input :email, :label => "Email"
+    = f.input :web, :label => "Página"
+    = f.input :service_days, :label => "Días de atención"
+    = f.input :service_hours, :label => "Horario"
+    = f.input :observations, :label => "Observaciones", :as => :text
+    = f.button :submit, :value => "Crear organization"
+
 #marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address])}}
 #map_canvas
 
 %script#infowindowTemplate{:type => "text/template"}
   %section.infowindow
     %header
-      %h2
+      %h4
         %a{:href => "http://{{web}}"}
           {{name}}
     %article
@@ -21,3 +37,19 @@
           {{service_days}}
         %li
           {{service_hours}}
+%script#moreInfoTemplate{:type => "text/template"}
+  %section.infowindow
+    %header
+      %h2
+        %a{:href => "http://{{web}}"}
+          {{name}}
+    %article
+      %ul
+        %li
+          Días de atención: {{service_days}}
+        %li
+          Horarios de atención: {{service_hours}}
+        %li
+          Documentación: {{documentation}}
+        %li
+          Observaciones: {{observations}}

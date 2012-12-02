@@ -9,6 +9,7 @@ var markers = {
   },
   drawOn: function(map){
     this.template = $("#infowindowTemplate").html();
+    this.moreInfoTemplate = $("#moreInfoTemplate").html();
     this.getData();
     $.each(this.organizations, function(index, organization){
       var address = organization.addresses[0];
@@ -22,13 +23,14 @@ var markers = {
           organization: organization
         });
         var infowindow = new google.maps.InfoWindow({
-          content: Mustache.render(markers.template, organization)
+          content: Mustache.render(markers.template, organization),
+          maxWidth: 300
         });
         google.maps.event.addListener(marker, 'click', function() {
           if (lastInfowindow) lastInfowindow.close();
           infowindow.open(map, marker);
           lastInfowindow = infowindow;
-          console.log(marker.organization);
+          $("#guia").html(Mustache.render(markers.moreInfoTemplate, organization));
         });
       }
     });
