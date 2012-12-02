@@ -1,12 +1,9 @@
-# If you have a very small app you may be able to
-# increase this, but in general 3 workers seems to
-# work best
-worker_processes 3
+root = "/home/malev/apps/asistencia-victima/current"
+working_directory root
+pid "#{root}/tmp/pids/unicorn.pid"
+stderr_path "#{root}/log/unicorn.log"
+stdout_path "#{root}/log/unicorn.log"
 
-# Load your app into the master before forking
-# workers for super-fast worker spawn times
-preload_app true
-
-# Immediately restart any workers that
-# haven't responded within 30 seconds
+listen "/tmp/unicorn.blog.sock"
+worker_processess 3
 timeout 30

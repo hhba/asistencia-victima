@@ -15,6 +15,7 @@ group :assets do
   gem 'zurb-foundation'
 end
 
+gem 'capistrano'
 gem 'jquery-rails'
 gem "fusion_tables"
 gem "geocoder"
