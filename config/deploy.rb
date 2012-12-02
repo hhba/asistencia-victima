@@ -32,6 +32,8 @@ set :ssh_options, :forward_agent => true
 default_run_options[:pty] = true
 set :keep_releases, 5
 
+set :bundle_flags, "--deployment --quiet --binstubs --shebang ruby-local-exec"
+
 namespace :deploy do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
@@ -43,6 +45,7 @@ namespace :deploy do
   task :setup_config, :roles => :app do
     sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}.conf"
     sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
+    sudo "chmod a+x #{current_path}/config/unicorn_init.sh"
     run "mkdir -p #{shared_path}/config"
   end
   after "deploy:setup", "deploy:setup_config"

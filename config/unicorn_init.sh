@@ -18,7 +18,7 @@ TIMEOUT=${TIMEOUT-60}
 ENVIRONMENT=production
 APP_ROOT=/home/malev/apps/asistencia-victima/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="cd $APP_ROOT; bundle exec unicorn -D -E $ENVIRONMENT -c $APP_ROOT/config/unicorn.rb"
+CMD="cd $APP_ROOT && bundle exec unicorn -D -E $ENVIRONMENT -c $APP_ROOT/config/unicorn.rb"
 AS_USER=malev
 action="$1"
 set -u
