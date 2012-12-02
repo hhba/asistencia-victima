@@ -24,9 +24,9 @@
     .row
       .four.columns
         .row
-          .nine.mobile-three.columns
+          .eight.mobile-three.columns
             %input#inputSearch{:type => "text"}
-          .three.mobile-one.columns
+          .four.mobile-one.columns
             %input.button.expand.postfix#btnSearch{:type => "submit", :value => "Buscar"}
         .row
           .twelve.columns#results
@@ -55,31 +55,35 @@
             .twelve.columns.mobile-four
               = yield
           %li#simple2Tab
-            = yield :add_organization
+            .row
+              .twelve.columns.mobile-four
+                = yield :add_organization
           %li#simple3Tab
-            %h2
-              Proyecto
-            %p
-              El Programa Nacional de Lucha Contra la Impunidad (Pronalci) de la Secretaría de DDHH de la Nación Argentina pone a su alcance los servicios gratuitos de asistencia a las víctimas disponibles en toda la argentina.
-            %p
-              En su gran mayoría son servicios que brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
-            %p
-              Inicialmente usted podrá localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de su localización o domicilio. Poco a poco, la base de datos se irá actualizando a otros servicios como mediación, asistencia social, etc.
-            %p
-              El proyecto apunta a dos tipos de usuarios: la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
-            %p
-              Para dar de alta un servicio la institución interesada deberá darla de alta en el formulario de la base de datos con toda la información requerida y el Pronalci se encargará de validar el registro correspondiente.
-            %p
-              Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
-            %p
-            Si tenés una duda o sugerencia, contactate con nosotros.
+            .row
+              .twelve.columns.mobile-four
+                %h2
+                  Proyecto
+                %p
+                  El Programa Nacional de Lucha Contra la Impunidad (Pronalci) de la Secretaría de DDHH de la Nación Argentina pone a su alcance los servicios gratuitos de asistencia a las víctimas disponibles en toda la argentina.
+                %p
+                  En su gran mayoría son servicios que brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
+                %p
+                  Inicialmente usted podrá localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de su localización o domicilio. Poco a poco, la base de datos se irá actualizando a otros servicios como mediación, asistencia social, etc.
+                %p
+                  El proyecto apunta a dos tipos de usuarios: la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
+                %p
+                  Para dar de alta un servicio la institución interesada deberá darla de alta en el formulario de la base de datos con toda la información requerida y el Pronalci se encargará de validar el registro correspondiente.
+                %p
+                  Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
+                %p
+                Si tenés una duda o sugerencia, contactate con nosotros.
           %li#simple4Tab
             .row
-              .twelve.columns
+              .twelve.columns.mobile-four
                 %p
                   Los personas que integran este proyecto que desarrollado en el hackaton ''Desarrollando América Latina 2012'' celebrado los días 1 y 2 de diciembre de 2012 son:
             .row
-              .six.columns
+              .six.columns.mobile-four
                 = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
                 %br/
                 %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez

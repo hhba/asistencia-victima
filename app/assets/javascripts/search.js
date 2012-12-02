@@ -70,7 +70,7 @@ function initialize() {
       featureType: 'all',
       elementType: 'all',
       stylers: [
-        { saturation: -99 }
+        { saturation: -40 }
       ]
     }
   ];
@@ -80,14 +80,6 @@ function initialize() {
   });
   map.mapTypes.set('map-style', styledMapType);
   map.setMapTypeId('map-style');
-  // layerl0 = new google.maps.FusionTablesLayer({
-  //   query: {
-  //     select: "Dirección maps",
-  //     from: fustion_table_id
-  //   },
-  //   map: map,
-  //   styleId: 2
-  // });
   markers.drawOn(map);
 }
 
