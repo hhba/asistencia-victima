@@ -27,7 +27,7 @@
           %input{:type => "text"}
         .two.mobile-one.columns
           %a.button.expand.postfix Search
-      .eight.columns
+      .eight.columns.mobile-four
         %dl.tabs
           %dd.active
             %a{:href => "#simple1"} Mapa
@@ -41,7 +41,7 @@
             %a{:href => "#simple5"} Equipo
         %ul.tabs-content
           %li#simple1Tab.active
-            %div
+            .twelve.columns.mobile-four
               = yield
           %li#simple2Tab
             %h4 Guía
