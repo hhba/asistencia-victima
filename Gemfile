@@ -15,7 +15,11 @@ group :assets do
   gem 'zurb-foundation'
 end
 
-gem 'capistrano'
+group :deploy do
+  gem 'capistrano'
+  gem 'capistrano-unicorn', :require => false
+end
+
 gem 'jquery-rails'
 gem "fusion_tables"
 gem "geocoder"

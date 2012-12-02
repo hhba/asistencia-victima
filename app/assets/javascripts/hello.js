@@ -3,6 +3,7 @@ var map;
 var layerl0;
 var styles = [];
 var lastInfowindow = null;
+
 var markers = {
   getData: function(){
    this.organizations = $("#marker-information").data("organizations");
@@ -30,7 +31,7 @@ var markers = {
           if (lastInfowindow) lastInfowindow.close();
           infowindow.open(map, marker);
           lastInfowindow = infowindow;
-          $("#guia").html(Mustache.render(markers.moreInfoTemplate, organization));
+          $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
         });
       }
     });
@@ -90,4 +91,52 @@ function initialize() {
   markers.drawOn(map);
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+searcher = {
+  search: function(cad){
+    var reg_q = new RegExp(cad, "i");
+    var that = this;
+    this.results = [];
+
+    $.each(this.organizations, function(index, organization){
+      if(organization.name.search(reg_q) != -1){
+        that.results.push(organization);
+      }
+    });
+    return this.results;
+  },
+  drawResults: function(){
+    var output = "";
+    var that = this;
+    $.each(this.results, function(index, result){
+      output = output + Mustache.render(that.resultsTemplate, result);
+    });
+    $("#results").html(output);
+  },
+  initialize: function(){
+    this.organizations = $("#marker-information").data("organizations");
+    this.resultsTemplate = $("#resultsTemplate").html();
+    return this;
+  },
+  exec: function(cad){
+    this.initialize();
+    this.search(cad);
+    this.drawResults();
+    return this;
+  }
+};
+
+$(document).ready(function(){
+  initialize();
+  $("#btnSearch").click(function(event){
+    event.preventDefault();
+    searcher.exec($('#inputSearch').val());
+  });
+  $('#inputSearch').change(function(event){
+    event.preventDefault();
+    var cad = $(this).val();
+    console.log(cad);
+    if(cad.length > 1){
+      searcher.exec(cad);
+    }
+  });
+});
