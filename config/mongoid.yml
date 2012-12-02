@@ -66,7 +66,7 @@ test:
         - localhost:27017
       options:
         consistency: :strong
-test:
+production:
   sessions:
     default:
       database: asistencia_victima_production
