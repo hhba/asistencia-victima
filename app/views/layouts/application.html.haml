@@ -1,0 +1,106 @@
+!!!
+/ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+/[if lt IE 7 ] <html class="ie6" lang="en">
+/[if IE 7 ] <html class="ie7" lang="en">
+/[if IE 8 ] <html class="ie8" lang="en">
+/ [if (gte IE 9)|!(IE)]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    / Uncomment to make IE8 render like IE7
+    / <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    / Set the viewport width to device width for mobile
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Untitled"
+    / Included CSS Files
+    = stylesheet_link_tag "application"
+    / Included JS Files
+    = csrf_meta_tags
+  %body
+    .row
+      .twelve.columns
+        %h2 Asistencia a las víctimas
+    .row
+      .four.columns
+        .ten.mobile-three.columns
+          %input{:type => "text"}
+        .two.mobile-one.columns
+          %a.button.expand.postfix Search
+      .eight.columns
+        %dl.tabs
+          %dd.active
+            %a{:href => "#simple1"} Mapa
+          %dd
+            %a{:href => "#simple2"} Guía
+          %dd
+            %a{:href => "#simple3"} Agregar
+          %dd
+            %a{:href => "#simple4"} Proyecto
+          %dd
+            %a{:href => "#simple5"} Equipo
+        %ul.tabs-content
+          %li#simple1Tab.active
+            %div
+              = yield
+          %li#simple2Tab
+            %h4 Guía
+            %p A continuación se muestran los pasos a seguir para el uso de la aplicación de búsqueda. Con ello se pretende que el usuario pueda localizar su centro de ayuda más cercano y facilitarle información básica y através de la cual pueda orientarse para recibir el asesoramiento requerido..
+            %h4 Pasos
+            %ol
+              %li Ingrese su localización (escriba una dirección postal y localidad)
+              %li Escoja el tipo de ayuda
+              %li
+                Seleccione su centro de ayuda (la geolocalización le dará cuales son los puntos más cercanos a su domicilio)
+              %li
+                Obtenga la información del servicio, requisitos, condiciones y otros datos para solicitar su ayuda ( se facilita la dirección y el horario de atención; también puede contactar con los centro de ayuda vía teléfono, mail o acercandose directamente a la sede)
+          %li#simple3Tab
+            %h1 AGREGAR
+          %li#simple4Tab
+            %h2
+              Proyecto
+            %i
+              (información y estadísticas)
+            El Programa Nacional de Lucha Contra la Impunidad (Pronalci) de la Secretaría de DDHH de la Nación Argentina pone a su alcance los servicios gratuitos de asistencia a las víctimas disponibles en toda la argentina.
+            En su gran mayoría son servicios que brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
+            Inicialmente usted podrá localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de su localización o domicilio. Poco a poco, la base de datos se irá actualizando a otros servicios como mediación, asistencia social, etc.
+            El proyecto apunta a dos tipos de usuarios: la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
+            Para dar de alta un servicio la institución interesada deberá darla de alta en el formulario de la base de datos con toda la información requerida y el Pronalci se encargará de validar el registro correspondiente.
+            Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
+
+            %h3
+              Participan del proyecto:
+            %ul
+              %li
+                Marcos Vanetta (ingeniero)
+              %li
+                Tania Wassaf (diseñadora)
+              %li
+                Aránzazu Sanchez (ingeniera)
+              %li
+                Sergio Sorin (periodista)
+            Si tenés una duda o sugerencia, compartila en el formulario de contacto.
+          %li#simple5Tab
+            %ul.disc
+              %li
+                %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
+                = succeed "Ejecutivo" do
+                  %br/
+                del proyecto Mapa de asistencia a las victimas
+              %li
+                %a{:href => "https://twitter.com/malev"} Marcos Vanetta
+                = succeed "Ejecutivo" do
+                  %br/
+                del proyecto Mapa de asistencia a las victimas
+              %li
+                %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
+                = succeed "Ejecutiva" do
+                  %br/
+                del proyecto Mapa de asistencia a las victimas
+              %li
+                %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
+                = succeed "Ingeniera." do
+                  %br/
+                Analista de datos procesados
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCzQ0CFb-_BoezIVuEFbtkFeSCAOsVcaK8&sensor=true&language=es"
+    = javascript_include_tag "application"

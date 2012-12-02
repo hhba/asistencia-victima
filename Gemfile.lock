@@ -30,6 +30,7 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     builder (3.0.4)
+    chunky_png (1.2.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -37,10 +38,21 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    fssm (0.2.9)
+    fusion_tables (0.3.2)
+      gdata_19 (>= 1.1.2)
+    gdata_19 (1.1.5)
+    geocoder (1.1.5)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -54,12 +66,23 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.5)
+    kgio (2.7.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
+    modular-scale (1.0.2)
+      compass (>= 0.11.5)
+      sassy-math (>= 1.2)
+    mongoid (3.0.5)
+      activemodel (~> 3.1)
+      moped (~> 1.1)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.22)
+    moped (1.2.1)
     multi_json (1.4.0)
+    origin (1.0.8)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -83,6 +106,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
+    raindrops (0.10.0)
     rake (10.0.2)
     rdoc (3.12)
       json (~> 1.4)
@@ -102,12 +126,13 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sassy-math (1.2)
+      compass (~> 0.11)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.6)
     thor (0.16.0)
     tilt (1.3.3)
     treetop (1.4.12)
@@ -117,17 +142,31 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    unicorn (4.3.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    zurb-foundation (3.2.2)
+      compass (>= 0.12.2)
+      modular-scale (>= 1.0.2)
+      rake
+      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  compass-rails
+  fusion_tables
+  geocoder
   haml (>= 3.0.0)
   haml-rails
   jquery-rails
+  mongoid
   rails (= 3.2.9)
   rspec-rails (>= 2.0.1)
   sass-rails (~> 3.2.3)
-  sqlite3
   uglifier (>= 1.0.3)
+  unicorn
+  zurb-foundation

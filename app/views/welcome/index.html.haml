@@ -1,0 +1,23 @@
+#marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address])}}
+#map_canvas{:style => "width:600px; height:500px"}
+
+%script#infowindowTemplate{:type => "text/template"}
+  %section.infowindow
+    %header
+      %h2
+        %a{:href => "http://{{web}}"}
+          {{name}}
+    %article
+      %ul
+        %li
+          {{state}}
+        %li
+          {{address}}
+        %li
+          {{phone}}
+        %li
+          {{email}}
+        %li
+          {{service_days}}
+        %li
+          {{service_hours}}
