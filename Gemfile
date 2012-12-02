@@ -17,7 +17,6 @@ end
 
 group :deploy do
   gem 'capistrano'
-  gem 'capistrano-unicorn', :require => false
 end
 
 gem 'jquery-rails'

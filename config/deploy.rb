@@ -1,5 +1,4 @@
 require "bundler/capistrano"
-require 'capistrano-unicorn'
 
 set :application, "asistencia-victima"
 set :user, "malev"
@@ -34,15 +33,12 @@ default_run_options[:pty] = true
 set :keep_releases, 5
 
 namespace :deploy do
-  after 'deploy:restart', 'unicorn:reload' # app IS NOT preloaded
-  after 'deploy:restart', 'unicorn:restart'  # app preloaded
-
-  # %w[start stop restart].each do |command|
-  #   desc "#{command} unicorn server"
-  #   task command, :roles => :app, :except => {:no_release => true} do
-  #     run "/etc/init.d/unicorn_#{application} #{command}"
-  #   end
-  # end
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn server"
+    task command, :roles => :app, :except => {:no_release => true} do
+      run "/etc/init.d/unicorn_#{application} #{command}"
+    end
+  end
 
   task :setup_config, :roles => :app do
     sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}.conf"
@@ -60,17 +56,3 @@ namespace :deploy do
   end
   before "deploy", "deploy:check_revision"
 end
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
