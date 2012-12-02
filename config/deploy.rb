@@ -1,5 +1,6 @@
 require "bundler/capistrano"
 
+set :application, "asistencia-victima"
 set :user, "malev"
 set :domain, "54.235.246.70"
 set :environment, "production"
