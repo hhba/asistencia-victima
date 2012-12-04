@@ -23,8 +23,6 @@ AS_USER=malev
 action="$1"
 set -u
 
-test -f "$INIT_CONF" && . $INIT_CONF
-
 old_pid="$PID.oldbin"
 
 cd $APP_ROOT || exit 1
