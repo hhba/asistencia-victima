@@ -18,12 +18,12 @@ TIMEOUT=${TIMEOUT-60}
 ENVIRONMENT=production
 APP_ROOT=/home/malev/apps/asistencia-victima/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="cd $APP_ROOT && bundle exec unicorn -D -E $ENVIRONMENT -c $APP_ROOT/config/unicorn.rb"
+CMD="$APP_ROOT/bin/unicorn -D -E $ENVIRONMENT -c $APP_ROOT/config/unicorn.rb"
 AS_USER=malev
 action="$1"
 set -u
 
-# test -f "$INIT_CONF" && . $INIT_CONF
+test -f "$INIT_CONF" && . $INIT_CONF
 
 old_pid="$PID.oldbin"
 
@@ -40,7 +40,7 @@ oldsig () {
 case $action in
 start)
   sig 0 && echo >&2 "Already running" && exit 0
-  $CMD
+  su -c "$CMD" - $AS_USER
   ;;
 stop)
   sig QUIT && exit 0
@@ -53,7 +53,7 @@ force-stop)
 restart|reload)
   sig HUP && echo reloaded OK && exit 0
   echo >&2 "Couldn't reload, starting '$CMD' instead"
-  $CMD
+  su -c "$CMD" - $AS_USER
   ;;
 upgrade)
   if sig USR2 && sleep 2 && sig 0 && oldsig QUIT
@@ -73,7 +73,7 @@ upgrade)
     exit 0
   fi
   echo >&2 "Couldn't upgrade, starting '$CMD' instead"
-  $CMD
+  su -c "$CMD" - $AS_USER
   ;;
 reopen-logs)
   sig USR1
