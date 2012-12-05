@@ -38,7 +38,7 @@ var markers = {
   }
 };
 var geoLocalizator = {
-  success: function(position){
+  successHandler: function(position){
     newCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     map.setCenter(newCenter);
     var marker = new google.maps.Marker({
@@ -48,13 +48,13 @@ var geoLocalizator = {
         title: "Tu ubicación actual"
     });
   },
-  error: function(msg){
-    // console.log(msg);
+  errorHandler: function(msg){
+    console.log(msg);
   },
   centerMap: function(map){
     this.map = map;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.success, this.error);
+      navigator.geolocation.getCurrentPosition(this.successHandler, this.errorHandler);
     }
   }
 };
@@ -70,7 +70,7 @@ function initialize() {
       featureType: 'all',
       elementType: 'all',
       stylers: [
-        { saturation: -40 }
+        { saturation: -90 }
       ]
     }
   ];
