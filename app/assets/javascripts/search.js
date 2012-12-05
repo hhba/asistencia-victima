@@ -3,6 +3,7 @@ var map;
 var layerl0;
 var styles = [];
 var lastInfowindow = null;
+var defaultZoom = 10;
 
 var markers = {
   getData: function(){
@@ -62,7 +63,7 @@ var geoLocalizator = {
 function initialize() {
   map = new google.maps.Map(document.getElementById('map_canvas'), {
     center: new google.maps.LatLng(-33.65682940830173, -63.85107421875),
-    zoom: 15
+    zoom: defaultZoom
   });
   geoLocalizator.centerMap(map);
   var style = [
