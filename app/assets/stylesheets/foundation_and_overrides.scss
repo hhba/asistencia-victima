@@ -12,11 +12,11 @@
 
 // Colors Settings
 
-// $mainColor: #2ba6cb;
+$mainColor: #FF6600;
 // $secondaryColor: #e9e9e9;
 // $alertColor: #c60f13;
 // $successColor: #5da423;
-// $txtColor: #222;
+$txtColor: #333;
 // $highlightColor: #ffff99;
 // $black: #000;
 // $white: #fff;
@@ -26,14 +26,14 @@
 // Font Settings
 
 // $fontSmoothing: antialiased;
-// $headerFontFamily: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$headerFontFamily: 'Ubuntu Condensed', Arial, sans-serif;
 // $headerFontWeight: bold;
 // $headerFontStyle: normal;
 // $headerFontColor: #222;
-// $bodyFontFamily: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$bodyFontFamily: 'Ubuntu Condensed', Arial, sans-serif;
 // $bodyFontWeight: normal;
 // $bodyFontStyle: normal;
-// $bodyFontColor: $txtColor;
+$bodyFontColor: $txtColor;
 
 // Text Direction Settings
 
@@ -242,3 +242,38 @@
 // http://www.modularscale.com by Tim Brown
 // https://github.com/scottkellum/modular-scale by scottkellum
 @import 'foundation';
+
+h4 {
+  color: $txtColor;
+  font-size: 20px;
+}
+p, ol, ul, td {
+  font-family: $bodyFontFamily;
+  line-height: 18px;
+}
+.tabs dd.active, .tabs li.active {
+  border-color: #FF6600;
+}
+.tabs dd.active a, .tabs li.active a {
+  color: #3C3C3C;
+}
+.tabs dd a, .tabs li a {
+  font-size: 18px;
+  font-variant: small-caps;
+}
+.button {
+  background-color: $mainColor;
+  border-color: $mainColor;
+  &:hover{
+    background-color: darken($mainColor, 5%)
+  }
+}
+#map_canvas{
+  width: 100%;
+  height: 500px;
+}
+.infowindow{
+  h2{
+    font-size: 1em;
+  }
+}
