@@ -1,21 +1,98 @@
-= content_for :add_organization do
-  %p
-    Si eres una institución interesada en colaborar en este servicio, añade tu información de contacto la siguiente formulario.
-  = simple_form_for @organization, :url => "/" do |f|
-    = f.input :name, :label => "Nombre de la organización"
-    = f.input :state, :label => "Provincia"
-    = f.input :town, :label => "Ciudad"
-    = f.input :jurisdiction, :label => "Jurisdicción"
-    = f.input :phone, :label => "Teléfono"
-    = f.input :email, :label => "Email"
-    = f.input :web, :label => "Página"
-    = f.input :service_days, :label => "Días de atención"
-    = f.input :service_hours, :label => "Horario"
-    = f.input :observations, :label => "Observaciones", :as => :text
-    = f.button :submit, :value => "Crear organization"
-
-#marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address, :services_offered, :latitude, :longitude])}}
-#map_canvas
+= content_for :page_header do
+  %h2 Asistencia a las víctimas
+.row
+  .four.columns
+    .row
+      .eight.mobile-three.columns
+        %input#inputSearch{:type => "text"}
+      .four.mobile-one.columns
+        %input.button.expand.postfix#btnSearch{:type => "submit", :value => "Buscar"}
+    .row
+      .twelve.columns#results
+        %h4 Guía
+        %p A continuación se muestran los pasos a seguir para el uso de la aplicación de búsqueda. Con ello se pretende que el usuario pueda localizar su centro de ayuda más cercano y facilitarle información básica y através de la cual pueda orientarse para recibir el asesoramiento requerido..
+        %h4 Pasos
+        %ol
+          %li Ingrese su localización (escriba una dirección postal y localidad)
+          %li Escoja el tipo de ayuda
+          %li
+            Seleccione su centro de ayuda (la geolocalización le dará cuales son los puntos más cercanos a su domicilio)
+          %li
+            Obtenga la información del servicio, requisitos, condiciones y otros datos para solicitar su ayuda ( se facilita la dirección y el horario de atención; también puede contactar con los centro de ayuda vía teléfono, mail o acercandose directamente a la sede)
+  .eight.columns.mobile-four
+    %dl.tabs
+      %dd.active
+        %a{:href => "#simple1"} Mapa
+      %dd
+        %a{:href => "#simple2"} Agregar
+      %dd
+        %a{:href => "#simple3"} Proyecto
+      %dd
+        %a{:href => "#simple4"} Equipo
+    %ul.tabs-content
+      %li#simple1Tab.active
+        .twelve.columns.mobile-four
+          #marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address, :services_offered, :latitude, :longitude])}}
+          #map_canvas
+      %li#simple2Tab
+        .row
+          .twelve.columns.mobile-four
+            %p
+              Si eres una institución interesada en colaborar en este servicio, añade tu información de contacto la siguiente formulario.
+            = simple_form_for @organization, :url => "/" do |f|
+              = f.input :name, :label => "Nombre de la organización"
+              = f.input :state, :label => "Provincia"
+              = f.input :town, :label => "Ciudad"
+              = f.input :jurisdiction, :label => "Jurisdicción"
+              = f.input :phone, :label => "Teléfono"
+              = f.input :email, :label => "Email"
+              = f.input :web, :label => "Página"
+              = f.input :service_days, :label => "Días de atención"
+              = f.input :service_hours, :label => "Horario"
+              = f.input :observations, :label => "Observaciones", :as => :text
+              = f.button :submit, :value => "Crear organization"
+      %li#simple3Tab
+        .row
+          .twelve.columns.mobile-four
+            %h2
+              Proyecto
+            %p
+              El Programa Nacional de Lucha Contra la Impunidad (Pronalci) de la Secretaría de DDHH de la Nación Argentina pone a su alcance los servicios gratuitos de asistencia a las víctimas disponibles en toda la argentina.
+            %p
+              En su gran mayoría son servicios que brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
+            %p
+              Inicialmente usted podrá localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de su localización o domicilio. Poco a poco, la base de datos se irá actualizando a otros servicios como mediación, asistencia social, etc.
+            %p
+              El proyecto apunta a dos tipos de usuarios: la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
+            %p
+              Para dar de alta un servicio la institución interesada deberá darla de alta en el formulario de la base de datos con toda la información requerida y el Pronalci se encargará de validar el registro correspondiente.
+            %p
+              Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
+            %p
+            Si tenés una duda o sugerencia, contactate con nosotros.
+      %li#simple4Tab
+        .row
+          .twelve.columns.mobile-four
+            %p
+              Los personas que integran este proyecto que desarrollado en el hackaton ''Desarrollando América Latina 2012'' celebrado los días 1 y 2 de diciembre de 2012 son:
+        .row
+          .six.columns.mobile-four
+            = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
+            %br/
+            %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
+          .six.columns
+            = link_to image_tag("https://si0.twimg.com/profile_images/2261749243/nuevo_perfil_reasonably_small.png"), "https://twitter.com/malev"
+            %br/
+            %a{:href => "https://twitter.com/malev"} Marcos Vanetta
+        .row
+          .six.columns
+            = link_to image_tag("https://si0.twimg.com/profile_images/2229361063/pollatos_reasonably_small.jpg"), "https://twitter.com/pollatos"
+            %br/
+            %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
+          .six.columns
+            = link_to image_tag("https://si0.twimg.com/profile_images/2902551273/b39ce76a07c56f9b896d5397602879a1_bigger.jpeg", :size => "128x128"), "https://twitter.com/latanitaw"
+            %br/
+            %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
 
 %script#infowindowTemplate{:type => "text/template"}
   %section.infowindow
