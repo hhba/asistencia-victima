@@ -272,6 +272,10 @@ h2.main-title{
   color: #525252;
   font-size: 45px;
   font-weight: normal;
+  text-align: right;
+}
+h3{
+  color: $mainColor;
 }
 #map_canvas{
   width: 100%;
