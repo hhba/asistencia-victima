@@ -20,10 +20,26 @@
     / Included JS Files
     = csrf_meta_tags
   %body
-    .row
+    %header.row
       .twelve.columns
         = yield :page_header
     = yield
+    %footer.row
+      .three.columns.centered
+        #fb-root
+        :javascript
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=210112509088807";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        .fb-like{"data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450"}
+        %a.twitter-share-button{"data-lang" => "en", :href => "https://twitter.com/share"} Tweet
+        :javascript
+          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCzQ0CFb-_BoezIVuEFbtkFeSCAOsVcaK8&sensor=true&language=es"
     = javascript_include_tag "application"
     :javascript
