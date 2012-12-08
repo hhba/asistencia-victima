@@ -6,22 +6,26 @@
       .twelve.columns.mobile-four
         %h3
           ¿Dónde estás?
+    .row
       .eight.mobile-three.columns
         %input#inputSearch{:type => "text"}
       .four.mobile-one.columns
         %input.button.expand.postfix#btnSearch{:type => "submit", :value => "Buscar"}
     .row
+      .twelve.columns
+        %i
+          Ej: Av. Rivadavia 1843, Buenos Aires
+    .row
       .twelve.columns#results
-        %h4 Guía
-        %p A continuación se muestran los pasos a seguir para el uso de la aplicación de búsqueda. Con ello se pretende que el usuario pueda localizar su centro de ayuda más cercano y facilitarle información básica y através de la cual pueda orientarse para recibir el asesoramiento requerido..
+        %p
+          Si fuiste víctima de violencia policial o de algún agente estatal, si sufriste abusos graves contra tu integridad, estás en riesgo o viviste un hecho traumático, el Estado Nacional pone a tu alcance y el de tu entono social una completa guía de servicios gratuitos de asistencia a la víctima. Muchos los brinda el Estado nacional, provincias y municipios, pero también universidades públicas y privadas, ONGs y colegios profesionales en diferentes puntos del país. Buscá el más próximo a donde estás. Entre todos te vamos a ayudar.
         %h4 Pasos
         %ol
-          %li Ingrese su localización (escriba una dirección postal y localidad)
-          %li Escoja el tipo de ayuda
+          %li Ingresa tu localización (escribe una dirección postal y localidad para ver los servicios más cercanos a tu domicilio).
           %li
-            Seleccione su centro de ayuda (la geolocalización le dará cuales son los puntos más cercanos a su domicilio)
+            Escoge el tipo de asistencia
           %li
-            Obtenga la información del servicio, requisitos, condiciones y otros datos para solicitar su ayuda ( se facilita la dirección y el horario de atención; también puede contactar con los centro de ayuda vía teléfono, mail o acercandose directamente a la sede)
+            Selecciona el centro de ayuda y lee atentamente la información del servicio, requisitos, condiciones, datos de contacto y horarios de atención.
   .eight.columns.mobile-four
     %dl.tabs
       %dd.active
@@ -43,23 +47,42 @@
             %iframe{:frameborder => "0", :scrolling => "no", :height => "3300", :marginheight => "0", :marginwidth => "0", :src => "https://docs.google.com/spreadsheet/embeddedform?formkey=dEtReENkd1lfb0lZYnZEYVViU2NsY3c6MQ&f=Ubuntu&tc=333333", :width => "630"} Loading...
       %li#simple3Tab
         .row
-          .twelve.columns.mobile-four
+          .twelve.columns.mobile-four.project
             %h2
               Proyecto
             %p
-              El Programa Nacional de Lucha Contra la Impunidad (Pronalci) de la Secretaría de DDHH de la Nación Argentina pone a su alcance los servicios gratuitos de asistencia a las víctimas disponibles en toda la argentina.
+              Desde el Programa Nacional de Lucha Contra la Impunidad (Pronalci), de la Secretaría de Derechos Humanos de la Nación, se comenzó a construir una base de datos enfocada inicialmente en los servicios gratuitos de patrocinio jurídico y asistencia psicológica, por ser éstos las principales demandas de las víctimas. En su gran mayoría los brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
             %p
-              En su gran mayoría son servicios que brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
+              Inicialmente podrás localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de tu localización o domicilio. Poco a poco, la base de datos se irá actualizando con nuevos servicios como mediación, asistencia social, etc.
             %p
-              Inicialmente usted podrá localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de su localización o domicilio. Poco a poco, la base de datos se irá actualizando a otros servicios como mediación, asistencia social, etc.
+              El proyecto apunta a la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
             %p
-              El proyecto apunta a dos tipos de usuarios: la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
+              Para dar de alta un servicio la institución interesada deberá agregarla a la base de datos con toda la información requerida y el Pronalci se encargará de certificar y validar el registro correspondiente.
+            %h4
+              Fundamentos
             %p
-              Para dar de alta un servicio la institución interesada deberá darla de alta en el formulario de la base de datos con toda la información requerida y el Pronalci se encargará de validar el registro correspondiente.
+              Las víctimas son el eslabón más delgado del sistema de justicia. No importa si son víctimas de violencia policial, institucional, de derechos humanos o incluso de tránsito o abusos graves contra la integridad. En todos los casos, son ciudadanos y familias enteras que al hecho traumático de sufrir la violencia se le suma el padecimiento de no saber a dónde acudir, y con ello a un gran número de circunstancias que las revictimizan.
             %p
-              Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
+              Es un hecho que las víctimas y sus familias deambulan por las oficinas públicas pidiendo ayuda y asistencia. Sus problemas son conocidos: no tienen abogado y mucho menos cómo pagarlo, necesitan contención para afrontar el trauma, perdieron su trabajo por ocuparse del caso judicial, reclaman una investigación imparcial y no cuentan con peritos calificados, el poco dinero que tienen se esfuma entre viáticos de una oficina a otra, en sostener a sus familias, etc.
             %p
-            Si tenés una duda o sugerencia, contactate con nosotros.
+              Tener un buen asesoramiento jurídico, contención psicológica, asistencia social y otros tipos de ayudas son determinantes para quienes padecen la violencia. Y más aún si las víctimas no tienen los recursos apropiados para hacerle frente a la impunidad del que perpetra la violencia, y más aún si ésta es institucional.
+            %p
+              Ante un hecho de violencia, el desconocimiento de qué buscar, cómo hacerlo o dónde acudir es la primera problemática con la que se encuentran muchas de las víctimas, sus familiares y entorno social.
+            %h4
+              Datos técnicos
+            %p
+              El dataset fue generado por el Pronalci en Google Fusiontables. La utilización de la API de Google Maps y la geolocalización implementada en esta aplicación para navegadores tanto en dispositivos móviles como de escritorio permite encontrar los servicios de asistencia a la víctima más próximos, reduciendo el tiempo que los afectados pierden hasta encontrar la ayuda que necesitan.
+            %p
+              Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo ya que el alcance de la base de datos depende de las propias entidades que ofrecen este tipo de servicios.
+            %p
+              La aplicación comenzó a realizarse en el hackatón "
+              %a{:href => "http://2012.desarrollandoamerica.org/argentina/"}
+                Desarrollando América Latina 2012
+              " celebrado los días 1 y 2 de diciembre de 2012 en el Centro Cultural General San Martín y recibió el tercer premio entre 11 proyectos de carácter social que abarcaban diferentes temas como: cambio climático, ciudad, medioambiente, transporte, salud, transparencia, derechos de los niños, educación y seguridad ciudadana, entre otros.
+            %p
+              Si tenés alguna duda o sugerencia, contactate con el Pronalci al 0800-122-5878 o por mail a 
+              %a{:href => "mailto:pronalci@jus.gov.ar"}
+                pronalci@jus.gov.ar
       %li#simple4Tab.team
         .row.member
           .twelve.columns.mobile-four
