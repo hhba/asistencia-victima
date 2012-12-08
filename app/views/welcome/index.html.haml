@@ -40,20 +40,7 @@
       %li#simple2Tab
         .row
           .twelve.columns.mobile-four
-            %p
-              Si eres una institución interesada en colaborar en este servicio, añade tu información de contacto la siguiente formulario.
-            = simple_form_for @organization, :url => "/" do |f|
-              = f.input :name, :label => "Nombre de la organización"
-              = f.input :state, :label => "Provincia"
-              = f.input :town, :label => "Ciudad"
-              = f.input :jurisdiction, :label => "Jurisdicción"
-              = f.input :phone, :label => "Teléfono"
-              = f.input :email, :label => "Email"
-              = f.input :web, :label => "Página"
-              = f.input :service_days, :label => "Días de atención"
-              = f.input :service_hours, :label => "Horario"
-              = f.input :observations, :label => "Observaciones", :as => :text
-              = f.button :submit, :value => "Crear organization"
+            %iframe{:frameborder => "0", :scrolling => "no", :height => "3300", :marginheight => "0", :marginwidth => "0", :src => "https://docs.google.com/spreadsheet/embeddedform?formkey=dEtReENkd1lfb0lZYnZEYVViU2NsY3c6MQ", :width => "630"} Loading...
       %li#simple3Tab
         .row
           .twelve.columns.mobile-four
