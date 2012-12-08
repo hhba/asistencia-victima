@@ -3,7 +3,7 @@ var map;
 var layerl0;
 var styles = [];
 var lastInfowindow = null;
-var defaultZoom = 10;
+var defaultZoom = 5;
 
 var markers = {
   getData: function(){
@@ -40,8 +40,9 @@ var markers = {
 };
 var geoLocalizator = {
   successHandler: function(position){
-    newCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    newCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude, {timeout: 5000});
     map.setCenter(newCenter);
+    map.setZoom(15);
     var marker = new google.maps.Marker({
         position: newCenter,
         map: map,
@@ -50,11 +51,11 @@ var geoLocalizator = {
     });
   },
   errorHandler: function(msg){
-    console.log(msg);
+    // console.log(msg);
   },
   centerMap: function(map){
     this.map = map;
-    if (navigator.geolocation) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(this.successHandler, this.errorHandler);
     }
   }
