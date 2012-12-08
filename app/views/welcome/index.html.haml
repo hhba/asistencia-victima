@@ -73,30 +73,41 @@
               Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo. El dataset fue generado en Google Fusiontables y la visualización de datos se realiza utilizando la API de Google Maps.
             %p
             Si tenés una duda o sugerencia, contactate con nosotros.
-      %li#simple4Tab
-        .row
+      %li#simple4Tab.team
+        .row.member
           .twelve.columns.mobile-four
             %p
-              Los personas que integran este proyecto que desarrollado en el hackaton ''Desarrollando América Latina 2012'' celebrado los días 1 y 2 de diciembre de 2012 son:
-        .row
-          .six.columns.mobile-four
-            = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
-            %br/
-            %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
-          .six.columns
-            = link_to image_tag("https://si0.twimg.com/profile_images/2261749243/nuevo_perfil_reasonably_small.png"), "https://twitter.com/malev"
-            %br/
-            %a{:href => "https://twitter.com/malev"} Marcos Vanetta
-        .row
-          .six.columns
+              Las personas que desarrollan y mantienen esta aplicación son miembros de la comunidad
+              = link_to "HacksHackers Buenos Aires", "http://www.meetup.com/HacksHackersBA/"
+              , un colectivo de periodistas, programadores, diseñadores y cientistas sociales que exploran nuevas formas interactivas de comunicación
+        .row.member
+          .two.columns.mobile-one
             = link_to image_tag("https://si0.twimg.com/profile_images/2229361063/pollatos_reasonably_small.jpg"), "https://twitter.com/pollatos"
-            %br/
+          .ten.columns.mobile-three
             %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
-          .six.columns
-            = link_to image_tag("https://si0.twimg.com/profile_images/2902551273/b39ce76a07c56f9b896d5397602879a1_bigger.jpeg", :size => "128x128"), "https://twitter.com/latanitaw"
             %br/
-            %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
-
+            Periodista y encargado de comunicación del Programa Nacional de Lucha Contra la Impunidad
+        .row.member
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
+            %br/
+            Ingeniera
+        .row.member
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2261749243/nuevo_perfil_reasonably_small.png"), "https://twitter.com/malev"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/malev"} Marcos Vanetta
+            %br/
+            Ingeniero de Software
+        .row
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2902551273/b39ce76a07c56f9b896d5397602879a1_bigger.jpeg", :size => "128x128"), "https://twitter.com/latanitaw"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/malev"} Tania Wassaf
+            %br/
+            Diseñadora gráfica
 %script#infowindowTemplate{:type => "text/template"}
   %section.infowindow
     %header
