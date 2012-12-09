@@ -90,44 +90,85 @@ searcher = {
     var reg_q = new RegExp(cad, "i");
     var that = this;
     this.results = [];
+    this.geocoder.geocode({ 'address': cad }, this.geocoderSearch);
 
     $.each(this.organizations, function(index, organization){
-      if(organization.name.search(reg_q) != -1){
+      if(organization.name.search(reg_q) !== -1){
         that.results.push(organization);
       }
-      if(organization.address.search(reg_q) != -1){
+      if(organization.address.search(reg_q) !== -1){
         that.results.push(organization);
       }
-      if(organization.services_offered.search(reg_q) != -1){
+      if(organization.services_offered.search(reg_q) !== -1){
         that.results.push(organization);
       }
       this.results = _.uniq(this.results);
     });
     return this.results;
   },
+  geocoderSearch: function(results, status){
+    switch(results.length){
+      case 0:
+        break;
+      case 1:
+        searcher.results.push({
+          partial:   "address",
+          address:   results[0].formatted_address,
+          latitude:  results[0].geometry.location.lat(),
+          longitude: results[0].geometry.location.lng()
+        });
+        searcher.results.reverse();
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            title: results[0].formatted_address
+        });
+        break;
+      default:
+        searcher.results = searcher.results.concat(
+          _.map(results, function(result){
+            return {
+              partial:   "address",
+              address:   result.formatted_address,
+              latitude:  result.geometry.location.lat(),
+              longitude: result.geometry.location.lng()
+            };
+          })
+        );
+    }
+    searcher.drawResults();
+  },
   drawResults: function(){
     var output = "";
     var that = this;
     $.each(this.results, function(index, result){
-      output = output + Mustache.render(that.resultsTemplate, result);
+      if("partial" in result){
+        output = output + Mustache.render(that.geoResultsTemplate, result);
+      } else {
+        output = output + Mustache.render(that.resultsTemplate, result);
+      }
     });
     $("#results").html("<h4>Resultados</h4>" + output);
   },
   initialize: function(){
+    this.geocoder = new google.maps.Geocoder();
     this.organizations = $("#marker-information").data("organizations");
     this.resultsTemplate = $("#resultsTemplate").html();
+    this.geoResultsTemplate = $("#geoResultsTemplate").html();
     return this;
   },
   exec: function(cad){
     this.initialize();
     this.search(cad);
-    this.drawResults();
     return this;
   }
 };
 
 $(document).ready(function(){
   initialize();
+  searcher.initialize(map);
   $("#btnSearch").click(function(event){
     event.preventDefault();
     searcher.exec($('#inputSearch').val());
@@ -142,7 +183,6 @@ $(document).ready(function(){
   $("a.organization").live("click", function(event){
     event.preventDefault();
     var $this = $(this);
-    console.log($this);
     newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
     map.setCenter(newCenter);
   });

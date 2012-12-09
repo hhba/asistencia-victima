@@ -166,3 +166,11 @@
           {{name}} - {{services_offered}} - {{address}}
           %br
           %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
+%script#geoResultsTemplate{:type => "text/template"}
+  %section.infowindow
+    %article
+      %ul
+        %li
+          {{address}}
+          %br
+          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
