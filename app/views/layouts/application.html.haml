@@ -12,6 +12,11 @@
     / <meta http-equiv="X-UA-Compatible" content="IE=7" />
     / Set the viewport width to device width for mobile
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "/asistencia-a-las-victimas.jpg", :property => "og:image"}
+    %meta{:content => "Asistencia a las víctimas", :property => "og:title"}
+    %meta{:content => "Asistencia a las víctimas", :property => "og:site_name"}
+    %meta{:content => "tool", :property => "og:type"}
+
     %title= content_for?(:title) ? yield(:title) : "Mapa de asistencia a las víctimas"
     %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu+Condensed", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}/
