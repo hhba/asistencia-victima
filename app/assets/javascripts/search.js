@@ -5,6 +5,13 @@ var styles = [];
 var lastInfowindow = null;
 var defaultZoom = 5;
 
+ft2json.query(
+  'SELECT * FROM 1xxoIwan9TAwkh_AMkmfYQKbyUdQAvbR5WTvtgzw',
+  function(result) {
+    console.log(result);
+  }
+);
+
 var markers = {
   getData: function(){
    this.organizations = $("#marker-information").data("organizations");
