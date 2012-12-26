@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+.sass-cache
 *.gem
 *.rbc
 .bundle
@@ -31,4 +32,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+*.swp
+*.swo
 
