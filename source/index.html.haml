@@ -1,0 +1,180 @@
+---
+title: Mapa de asistencia a las víctimas
+---
+%header.row
+  .twelve.columns
+    %h2.main-title Asistencia a las víctimas
+.row
+  .four.columns
+    .row
+      .twelve.columns.mobile-four
+        %h3
+          ¿Dónde estás?
+    .row
+      .eight.mobile-three.columns
+        %input#inputSearch{:type => "text"}
+      .four.mobile-one.columns
+        %input.button.expand.postfix#btnSearch{:type => "submit", :value => "Buscar"}
+    .row
+      .twelve.columns
+        %i
+          Ej: Av. Rivadavia 1843, Buenos Aires
+    .row
+      .twelve.columns#results
+        %p
+          Si fuiste víctima de violencia policial o de algún agente estatal, si sufriste abusos graves contra tu integridad, estás en riesgo o viviste un hecho traumático, el Estado Nacional pone a tu alcance y el de tu entono social una completa guía de servicios gratuitos de asistencia a la víctima. Muchos los brinda el Estado nacional, provincias y municipios, pero también universidades públicas y privadas, ONGs y colegios profesionales en diferentes puntos del país. Buscá el más próximo a donde estás. Entre todos te vamos a ayudar.
+        %h4 Pasos
+        %ol
+          %li Ingresa tu localización (escribe una dirección postal y localidad para ver los servicios más cercanos a tu domicilio).
+          %li
+            Escoge el tipo de asistencia
+          %li
+            Selecciona el centro de ayuda y lee atentamente la información del servicio, requisitos, condiciones, datos de contacto y horarios de atención.
+  .eight.columns.mobile-four
+    %dl.tabs
+      %dd.active
+        %a{:href => "#simple1"} Mapa
+      %dd
+        %a{:href => "#simple2"} Agregar
+      %dd
+        %a{:href => "#simple3"} Proyecto
+      %dd
+        %a{:href => "#simple4"} Equipo
+    %ul.tabs-content
+      %li#simple1Tab.active
+        .twelve.columns.mobile-four
+          #marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address, :services_offered, :latitude, :longitude])}}
+          #map_canvas
+      %li#simple2Tab
+        .row
+          .twelve.columns.mobile-four
+            %iframe{:frameborder => "0", :scrolling => "no", :height => "3300", :marginheight => "0", :marginwidth => "0", :src => "https://docs.google.com/spreadsheet/embeddedform?formkey=dEtReENkd1lfb0lZYnZEYVViU2NsY3c6MQ&f=Ubuntu&tc=333333", :width => "630"} Loading...
+      %li#simple3Tab
+        .row
+          .twelve.columns.mobile-four.project
+            %h2
+              Proyecto
+            %p
+              Desde el Programa Nacional de Lucha Contra la Impunidad (Pronalci), de la Secretaría de Derechos Humanos de la Nación, se comenzó a construir una base de datos enfocada inicialmente en los servicios gratuitos de patrocinio jurídico y asistencia psicológica, por ser éstos las principales demandas de las víctimas. En su gran mayoría los brinda el Estado nacional, provincias y municipios, pero por sobre todo las universidades públicas y privadas, ONGs y colegios profesionales en diferentes ciudades y localidades del país.
+            %p
+              Inicialmente podrás localizar aquellos servicios que brindan patrocinio jurídico y asistencia psicológica cerca de tu localización o domicilio. Poco a poco, la base de datos se irá actualizando con nuevos servicios como mediación, asistencia social, etc.
+            %p
+              El proyecto apunta a la víctima, su familia y/o amigos que necesiten encontrar la asistencia más próxima a su localización y las instituciones gubernamentales y no gubernamentales que las ofrecen, como por ejemplo las secretarías de derechos humanos municipales y provinciales, ONGs, hospitales, universidades, etc.
+            %p
+              Para dar de alta un servicio la institución interesada deberá agregarla a la base de datos con toda la información requerida y el Pronalci se encargará de certificar y validar el registro correspondiente.
+            %h4
+              Fundamentos
+            %p
+              Las víctimas son el eslabón más delgado del sistema de justicia. No importa si son víctimas de violencia policial, institucional, de derechos humanos o incluso de tránsito o abusos graves contra la integridad. En todos los casos, son ciudadanos y familias enteras que al hecho traumático de sufrir la violencia se le suma el padecimiento de no saber a dónde acudir, y con ello a un gran número de circunstancias que las revictimizan.
+            %p
+              Es un hecho que las víctimas y sus familias deambulan por las oficinas públicas pidiendo ayuda y asistencia. Sus problemas son conocidos: no tienen abogado y mucho menos cómo pagarlo, necesitan contención para afrontar el trauma, perdieron su trabajo por ocuparse del caso judicial, reclaman una investigación imparcial y no cuentan con peritos calificados, el poco dinero que tienen se esfuma entre viáticos de una oficina a otra, en sostener a sus familias, etc.
+            %p
+              Tener un buen asesoramiento jurídico, contención psicológica, asistencia social y otros tipos de ayudas son determinantes para quienes padecen la violencia. Y más aún si las víctimas no tienen los recursos apropiados para hacerle frente a la impunidad del que perpetra la violencia, y más aún si ésta es institucional.
+            %p
+              Ante un hecho de violencia, el desconocimiento de qué buscar, cómo hacerlo o dónde acudir es la primera problemática con la que se encuentran muchas de las víctimas, sus familiares y entorno social.
+            %h4
+              Datos técnicos
+            %p
+              El dataset fue generado por el Pronalci en Google Fusiontables. La utilización de la API de Google Maps y la geolocalización implementada en esta aplicación para navegadores tanto en dispositivos móviles como de escritorio permite encontrar los servicios de asistencia a la víctima más próximos, reduciendo el tiempo que los afectados pierden hasta encontrar la ayuda que necesitan.
+            %p
+              Este es un proyecto de OpenData, de actualización distribuida y de desarrollo colaborativo ya que el alcance de la base de datos depende de las propias entidades que ofrecen este tipo de servicios.
+            %p
+              La aplicación comenzó a realizarse en el hackatón "
+              %a{:href => "http://2012.desarrollandoamerica.org/argentina/"}
+                Desarrollando América Latina 2012
+              " celebrado los días 1 y 2 de diciembre de 2012 en el Centro Cultural General San Martín y recibió el tercer premio entre 11 proyectos de carácter social que abarcaban diferentes temas como: cambio climático, ciudad, medioambiente, transporte, salud, transparencia, derechos de los niños, educación y seguridad ciudadana, entre otros.
+            %p
+              Si tenés alguna duda o sugerencia, contactate con el Pronalci al 0800-122-5878 o por mail a 
+              %a{:href => "mailto:pronalci@jus.gov.ar"}
+                pronalci@jus.gov.ar
+      %li#simple4Tab.team
+        .row.member
+          .twelve.columns.mobile-four
+            %p
+              Las personas que desarrollan y mantienen esta aplicación son miembros de la comunidad
+              = link_to "HacksHackers Buenos Aires", "http://www.meetup.com/HacksHackersBA/"
+              , un colectivo de periodistas, programadores, diseñadores y cientistas sociales que exploran nuevas formas interactivas de comunicación
+        .row.member
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2229361063/pollatos_reasonably_small.jpg"), "https://twitter.com/pollatos"
+          .ten.columns.mobile-three
+            %a{:href => "http://pollatos.wordpress.com/"} Sergio Sorin
+            %br/
+            Periodista y encargado de comunicación del Programa Nacional de Lucha Contra la Impunidad
+        .row.member
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2604975090/03_reasonably_small.jpg"), "https://twitter.com/alegranza_a"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/alegranza_a"} Aránzazu Sánchez
+            %br/
+            Ingeniera
+        .row.member
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2261749243/nuevo_perfil_reasonably_small.png"), "https://twitter.com/malev"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/malev"} Marcos Vanetta
+            %br/
+            Ingeniero de Software
+        .row
+          .two.columns.mobile-one
+            = link_to image_tag("https://si0.twimg.com/profile_images/2902551273/b39ce76a07c56f9b896d5397602879a1_bigger.jpeg", :size => "128x128"), "https://twitter.com/latanitaw"
+          .ten.columns.mobile-three
+            %a{:href => "https://twitter.com/latanitaw"} Tania Wassaf
+            %br/
+            Diseñadora gráfica
+%script#infowindowTemplate{:type => "text/template"}
+  %section.infowindow
+    %header
+      %h4
+        %a{:href => "http://{{web}}"}
+          {{name}}
+    %article
+      %ul
+        %li
+          {{state}}
+        %li
+          {{address}}
+        %li
+          {{phone}}
+        %li
+          {{email}}
+        %li
+          {{service_days}}
+        %li
+          {{service_hours}}
+%script#moreInfoTemplate{:type => "text/template"}
+  %section.infowindow
+    %header
+      %h2
+        %a{:href => "http://{{web}}"}
+          {{name}}
+    %article
+      %ul
+        %li
+          Días de atención: {{service_days}}
+        %li
+          Horarios de atención: {{service_hours}}
+        %li
+          Documentación: {{documentation}}
+        %li
+          Servicios: {{services_offered}}
+        %li
+          Observaciones: {{observations}}
+%script#resultsTemplate{:type => "text/template"}
+  %section.infowindow
+    %article
+      %ul
+        %li
+          %img{:src => "/{{icon}}"}
+          %br
+          {{name}} - {{services_offered}} - {{address}}
+          %br
+          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
+%script#geoResultsTemplate{:type => "text/template"}
+  %section.infowindow
+    %article
+      %ul
+        %li
+          {{address}}
+          %br
+          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
