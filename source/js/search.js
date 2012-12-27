@@ -34,8 +34,17 @@ function FusionProxy(fusion_id){
     return this.data;
   };
   this.iconSelector = function(organization){
-    console.log(organization);
-    return "expert.png";
+    if (organization["Servicio 1"].length > 0 && organization["Servicio 2"].length > 0){
+      return "img/expert.png";
+    } else if (organization["Servicio 1"] == "Patrocinio jurídico"){
+      return "img/court.png";
+    } else if (organization["Servicio 1"] =="Asesoramiento"){
+      return "img/group.png";
+    } else if (organization["Servicio 1"] == "Atención psicológica"){
+      return "img/communitycentre.png";
+    } else {
+      return "img/expert.png"
+    }
   };
 }
 
