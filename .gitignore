@@ -34,4 +34,5 @@ _yardoc
 doc/
 *.swp
 *.swo
+build/
 
