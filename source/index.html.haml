@@ -43,7 +43,7 @@ title: Mapa de asistencia a las víctimas
     %ul.tabs-content
       %li#simple1Tab.active
         .twelve.columns.mobile-four
-          #marker-information{:data => {:organizations => @organizations.to_json(:methods => [:icon, :address, :services_offered, :latitude, :longitude])}}
+          #marker-information{:data => {:fusion => data.config.fusion}}
           #map_canvas
       %li#simple2Tab
         .row
