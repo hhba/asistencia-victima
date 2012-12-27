@@ -18,5 +18,6 @@
 =require foundation/jquery.foundation.mediaQueryToggle
 =require foundation/app
 
+=require ft2json
 =require search
 */
