@@ -7,111 +7,6 @@ var styles = [];
 var lastInfowindow = null;
 var defaultZoom = 5;
 
-function initialize() {
-  map = new google.maps.Map(document.getElementById('map_canvas'), {
-    center: new google.maps.LatLng(-33.65682940830173, -63.85107421875),
-    zoom: defaultZoom
-  });
-  geoLocalizator.centerMap(map);
-  var style = [
-    {
-      featureType: 'all',
-      elementType: 'all',
-      stylers: [
-        { saturation: -90 }
-      ]
-    }
-  ];
-  var styledMapType = new google.maps.StyledMapType(style, {
-    map: map,
-    name: 'Styled Map'
-  });
-  map.mapTypes.set('map-style', styledMapType);
-  map.setMapTypeId('map-style');
-  markers.drawOn(map);
-}
-
-searcher = {
-  search: function(cad){
-    var reg_q = new RegExp(cad, "i");
-    var that = this;
-    this.results = [];
-    this.geocoder.geocode({ 'address': cad }, this.geocoderSearch);
-
-    $.each(this.organizations, function(index, organization){
-      if(organization.name.search(reg_q) !== -1){
-        that.results.push(organization);
-      }
-      if(organization.address.search(reg_q) !== -1){
-        that.results.push(organization);
-      }
-      if(organization.services_offered.search(reg_q) !== -1){
-        that.results.push(organization);
-      }
-      this.results = _.uniq(this.results);
-    });
-    return this.results;
-  },
-  geocoderSearch: function(results, status){
-    switch(results.length){
-      case 0:
-        break;
-      case 1:
-        searcher.results.push({
-          partial:   "address",
-          address:   results[0].formatted_address,
-          latitude:  results[0].geometry.location.lat(),
-          longitude: results[0].geometry.location.lng()
-        });
-        searcher.results.reverse();
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            position: results[0].geometry.location,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: results[0].formatted_address
-        });
-        break;
-      default:
-        searcher.results = searcher.results.concat(
-          _.map(results, function(result){
-            return {
-              partial:   "address",
-              address:   result.formatted_address,
-              latitude:  result.geometry.location.lat(),
-              longitude: result.geometry.location.lng()
-            };
-          })
-        );
-    }
-    searcher.drawResults();
-  },
-  drawResults: function(){
-    var output = "";
-    var that = this;
-    $.each(this.results, function(index, result){
-      if("partial" in result){
-        output = output + Mustache.render(that.geoResultsTemplate, result);
-      } else {
-        output = output + Mustache.render(that.resultsTemplate, result);
-      }
-    });
-    $("#results").html("<h4>Resultados</h4>" + output);
-  },
-  initialize: function(){
-    this.geocoder = new google.maps.Geocoder();
-    this.organizations = $("#marker-information").data("organizations");
-    this.resultsTemplate = $("#resultsTemplate").html();
-    this.geoResultsTemplate = $("#geoResultsTemplate").html();
-    return this;
-  },
-  exec: function(cad){
-    this.initialize();
-    this.search(cad);
-    return this;
-  }
-};
-
 function FusionProxy(fusion_id){
   this.fusion_id = fusion_id;
   this.getData = function(callback){
@@ -121,6 +16,7 @@ function FusionProxy(fusion_id){
     });
   };
   this.formatter = function(results){
+    var that = this;
     this.data = _.map(results.data, function(result){
       var lat = result.geo.split(", ")[0];
       var lng = result.geo.split(", ")[1];
@@ -131,10 +27,15 @@ function FusionProxy(fusion_id){
         phone:   result["Teléfono"],
         email:   result["email"],
         web:     result["web"],
+        icon:    that.iconSelector(result),
         latLng: new google.maps.LatLng(lat, lng)
       }
     });
     return this.data;
+  };
+  this.iconSelector = function(organization){
+    console.log(organization);
+    return "expert.png";
   };
 }
 
@@ -174,7 +75,7 @@ function Mapper(selector) {
         map: that.map,
         animation: google.maps.Animation.DROP,
         title: organization.name,
-        //icon: organization.icon,
+        icon: organization.icon,
         //organization: organization
       });
     });
