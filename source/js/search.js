@@ -64,7 +64,7 @@ function Mapper(selector) {
   this.init = function(){
     this.map = new google.maps.Map(document.getElementById(this.selector), {
       center: new google.maps.LatLng(-33.65682940830173, -63.85107421875),
-      zoom: defaultZoom,
+      zoom: 15,
     });
     return this.styleMap();
   };
