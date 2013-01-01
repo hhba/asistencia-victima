@@ -1,11 +1,21 @@
-var fustion_table_id = '1xxoIwan9TAwkh_AMkmfYQKbyUdQAvbR5WTvtgzw';
-var map;
-var mapper;
-var fusionProxy;
-var layerl0;
-var styles = [];
-var lastInfowindow = null;
-var defaultZoom = 5;
+function GeoLocalizator() {
+  this.currentPosition = function(callback){
+    var that = this;
+    this.callback = callback;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        function(position){
+          var newCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude, {timeout: 5000});
+          that.callback(newCenter);
+        }, function(){
+          that.errorHandler();
+        }
+      );
+    }
+  };
+  this.errorHandler = function(msg){
+  };
+}
 
 function FusionProxy(fusion_id){
   this.fusion_id = fusion_id;
@@ -28,7 +38,7 @@ function FusionProxy(fusion_id){
         email:   result["email"],
         web:     result["web"],
         icon:    that.iconSelector(result),
-        latLng: new google.maps.LatLng(lat, lng)
+        latLng:  new google.maps.LatLng(lat, lng)
       }
     });
     return this.data;
@@ -50,11 +60,11 @@ function FusionProxy(fusion_id){
 
 function Mapper(selector) {
   this.selector = selector;
-  this.markers = [];
+  this.mapOrganizations = [];
   this.init = function(){
     this.map = new google.maps.Map(document.getElementById(this.selector), {
       center: new google.maps.LatLng(-33.65682940830173, -63.85107421875),
-      zoom: defaultZoom
+      zoom: defaultZoom,
     });
     return this.styleMap();
   };
@@ -76,17 +86,15 @@ function Mapper(selector) {
     this.map.setMapTypeId('map-style');
     return this;
   };
-  this.addMarkers = function(organizations){
+  this.addOrganizations = function(organizations){
+    this.mapOrganizations = _.map(organizations, function(organization){
+      return new MapOrganization(organization);
+    });
+  };
+  this.drawOrganizations = function(){
     var that = this;
-    this.markers = _.map(organizations, function(organization){
-      var marker = new google.maps.Marker({
-        position: organization.latLng,
-        map: that.map,
-        animation: google.maps.Animation.DROP,
-        title: organization.name,
-        icon: organization.icon,
-        //organization: organization
-      });
+    _.each(this.mapOrganizations, function(mapOrganization){
+      mapOrganization.drawOn(that.map);
     });
   };
   this.addMarker = function(position, text){
@@ -96,7 +104,6 @@ function Mapper(selector) {
         animation: google.maps.Animation.DROP,
         title: text 
     });
-    return marker;
   };
   this.centerMap = function(location, zoom) {
     zoom = typeof zoom !== 'undefined' ? zoom : 15;
@@ -106,82 +113,60 @@ function Mapper(selector) {
   };
 }
 
-function GeoLocalizator() {
-  this.currentPosition = function(callback){
+function MapOrganization(organization){
+  this.organization = organization;
+  this.addInfowindow = function(map){
     var that = this;
-    this.callback = callback;
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        function(position){
-          var newCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude, {timeout: 5000});
-          that.callback(newCenter);
-        }, function(){
-          that.errorHandler();
-        }
-      );
-    }
-  };
-  this.errorHandler = function(msg){
-  };
-}
-
-function Marker(position){
-  this.position = position;
-}
-
-var Markers = {
-  getData: function(){
-   this.organizations = $("#marker-information").data("organizations");
-  },
-  drawOn: function(map){
-    this.template = $("#infowindowTemplate").html();
-    this.moreInfoTemplate = $("#moreInfoTemplate").html();
-    this.getData();
-    $.each(this.organizations, function(index, organization){
-      var address = organization.addresses[0];
-      if(address){
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(address.latitude, address.longitude),
-          map: map,
-          animation: google.maps.Animation.DROP,
-          title: organization.name,
-          icon: organization.icon,
-          organization: organization
-        });
-        var infowindow = new google.maps.InfoWindow({
-          content: Mustache.render(markers.template, organization),
-          maxWidth: 300
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-          if (lastInfowindow) lastInfowindow.close();
-          infowindow.open(map, marker);
-          lastInfowindow = infowindow;
-          $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
-        });
-      }
+    var infowindow =  new google.maps.InfoWindow({
+      content: Mustache.render(markers.template, organization),
+      maxWidth: 300
     });
-  }
-};
+    google.maps.event.addListener(marker, 'click', function() {
+      if (lastInfowindow) lastInfowindow.close();
+      infowindow.open(map, marker);
+      lastInfowindow = infowindow;
+      $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
+    });
+  };
+  this.generateMarker = function(map){
+    this.marker = new google.maps.Marker({
+        position: this.organization.latLng,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: this.organization.title,
+        icon: this.organization.icon
+    });
+  };
+  this.drawOn = function(map){
+    this.generateMarker(map);
+  };
+}
+
+function Searcher(map){
+  this.map = map;
+}
 
 $(document).ready(function(){
-  mapper = new Mapper("map_canvas");
-  fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
-  geoLocalizator = new GeoLocalizator();
+  var mapper = new Mapper("map_canvas");
+  var fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
+  var geoLocalizator = new GeoLocalizator();
+  var searcher = new Searcher(mapper);
+
   mapper.init();
-  fusionProxy.getData(function(results){
-    mapper.addMarkers(results);
+  fusionProxy.getData(function(organizations){
+    mapper.addOrganizations(organizations);
+    mapper.drawOrganizations();
   });
   geoLocalizator.currentPosition(function(position){
     mapper.centerMap(position);
-    mapper.addMarker(position, "You are here");
+    mapper.addMarker(position, "Ud. está aquí.");
   });
 
-//  initialize();
-//  searcher.initialize(map);
   $("#btnSearch").click(function(event){
     event.preventDefault();
     searcher.exec($('#inputSearch').val());
   });
+  /*
   $('#inputSearch').change(function(event){
     event.preventDefault();
     var cad = $(this).val();
@@ -189,6 +174,7 @@ $(document).ready(function(){
       searcher.exec(cad);
     }
   });
+  */
   $("a.organization").live("click", function(event){
     event.preventDefault();
     var $this = $(this);
