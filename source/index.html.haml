@@ -157,39 +157,31 @@ title: Mapa de asistencia a las víctimas
         </ul>
       </article>
     </section>
-%script#moreInfoTemplate{:type => "text/template"}
-  %section.infowindow
-    %header
-      %h2
-        %a{:href => "http://{{web}}"}
-          {{name}}
-    %article
-      %ul
-        %li
-          Días de atención: {{service_days}}
-        %li
-          Horarios de atención: {{service_hours}}
-        %li
-          Documentación: {{documentation}}
-        %li
-          Servicios: {{services_offered}}
-        %li
-          Observaciones: {{observations}}
 %script#resultsTemplate{:type => "text/template"}
-  %section.infowindow
-    %article
-      %ul
-        %li
-          %img{:src => "/{{icon}}"}
-          %br
-          {{name}} - {{services_offered}} - {{address}}
-          %br
-          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
+  :plain
+    <section class='infowindow'>
+      <article>
+        <ul>
+          <li>
+            <img src='/<%= icon %>' />
+            <br />
+            <%= name %> - <%= service_offered %> - <%= address %>
+            <br />
+            <a class='organization' data-latitude='<%= latitude %>' data-longitude='<%= longitude %>' href='#'>Ver en el mapa</a>
+          </li>
+        </ul>
+      </article>
+    </section>
 %script#geoResultsTemplate{:type => "text/template"}
-  %section.infowindow
-    %article
-      %ul
-        %li
-          {{address}}
-          %br
-          %a{:class => "organization", :href => "#", :data => {:latitude => "{{latitude}}", :longitude => "{{longitude}}"}} Ver en el mapa
+  :plain
+    <section class='infowindow'>
+      <article>
+        <ul>
+          <li>
+            <%= address %>
+            <br />
+            <a class='organization' data-latitude='<%= latitude %>' data-longitude='<%= longitude %>' href='#'>Ver en el mapa</a>
+          </li>
+        </ul>
+      </article>
+    </section>
