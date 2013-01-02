@@ -1,3 +1,6 @@
+function isBlank(str) {
+  return (!str || /^\s*$/.test(str));
+}
 function GeoLocalizator() {
   this.currentPosition = function(callback){
     var that = this;
@@ -31,14 +34,17 @@ function FusionProxy(fusion_id){
       var lat = result.geo.split(", ")[0];
       var lng = result.geo.split(", ")[1];
       return {
-        name:    result["Organismo"],
-        address: result["Dirección postal"],
-        city:    result["Localidad"],
-        phone:   result["Teléfono"],
-        email:   result["email"],
-        web:     result["web"],
-        icon:    that.iconSelector(result),
-        latLng:  new google.maps.LatLng(lat, lng)
+        name:          result["Organismo"],
+        address:       result["Dirección postal"],
+        city:          result["Localidad"],
+        phone:         result["Teléfono"],
+        email:         result["email"],
+        web:           result["web"],
+        state:         result["Localidad"],
+        service_days:  result["Días de atención"],
+        service_hours: result["Horarios"],
+        icon:          that.iconSelector(result),
+        latLng:        new google.maps.LatLng(lat, lng)
       }
     });
     return this.data;
@@ -59,6 +65,7 @@ function FusionProxy(fusion_id){
 }
 
 function Mapper(selector) {
+  this.lastInfoWindow = null;
   this.selector = selector;
   this.mapOrganizations = [];
   this.init = function(){
@@ -87,8 +94,9 @@ function Mapper(selector) {
     return this;
   };
   this.addOrganizations = function(organizations){
+    var that = this;
     this.mapOrganizations = _.map(organizations, function(organization){
-      return new MapOrganization(organization);
+      return new MapOrganization(organization, that);
     });
   };
   this.drawOrganizations = function(){
@@ -113,8 +121,9 @@ function Mapper(selector) {
   };
 }
 
-function MapOrganization(organization){
+function MapOrganization(organization, mapper){
   this.organization = organization;
+  this.mapper = mapper;
   this.addInfowindow = function(map){
     var that = this;
     var infowindow =  new google.maps.InfoWindow({
@@ -137,9 +146,24 @@ function MapOrganization(organization){
         icon: this.organization.icon
     });
   };
+  this.generateInfowindow = function(map){
+    var that = this;
+    this.infoWindow = new google.maps.InfoWindow({
+      content: this.infowindowTemplate(this.organization),
+      maxWidth: 300
+    });
+    google.maps.event.addListener(this.marker, 'click', function() {
+      if (that.mapper.lastInfoWindow) that.mapper.lastInfoWindow.close();
+      that.infoWindow.open(map, that.marker);
+      that.mapper.lastInfoWindow = that.infoWindow;
+      //$("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
+    });
+  };
   this.drawOn = function(map){
     this.generateMarker(map);
+    this.generateInfowindow(map);
   };
+  this.infowindowTemplate = _.template($("#infowindowTemplate").html());
 }
 
 function Searcher(map){
@@ -147,7 +171,7 @@ function Searcher(map){
 }
 
 $(document).ready(function(){
-  var mapper = new Mapper("map_canvas");
+  mapper = new Mapper("map_canvas");
   var fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
   var geoLocalizator = new GeoLocalizator();
   var searcher = new Searcher(mapper);

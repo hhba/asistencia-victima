@@ -123,25 +123,40 @@ title: Mapa de asistencia a las víctimas
             %br/
             Diseñadora gráfica
 %script#infowindowTemplate{:type => "text/template"}
-  %section.infowindow
-    %header
-      %h4
-        %a{:href => "http://{{web}}"}
-          {{name}}
-    %article
-      %ul
-        %li
-          {{state}}
-        %li
-          {{address}}
-        %li
-          {{phone}}
-        %li
-          {{email}}
-        %li
-          {{service_days}}
-        %li
-          {{service_hours}}
+  :plain
+    <section class='infowindow'>
+      <header>
+        <h4>
+          <% if(!isBlank(web)){ %>
+            <a href='http://<%= web %>'><%= name %></a>
+          <% } else { %>
+            <%= name %>
+          <% } %>
+        </h4>
+      </header>
+      <article>
+        <ul>
+          <% if(!isBlank(state)){ %>
+            <li><%= state %></li>
+          <% } %>
+          <% if(!isBlank(address)){ %>
+            <li><%= address %></li>
+          <% } %>
+          <% if(!isBlank(phone)){ %>
+            <li><%= phone %></li>
+          <% } %>
+          <% if(!isBlank(email)){ %>
+            <li><%= email %></li>
+          <% } %>
+          <% if(!isBlank(service_days)){ %>
+            <li><%= service_days %></li>
+          <% } %>
+          <% if(!isBlank(service_hours)){ %>
+            <li><%= service_hours %></li>
+          <% } %>
+        </ul>
+      </article>
+    </section>
 %script#moreInfoTemplate{:type => "text/template"}
   %section.infowindow
     %header
