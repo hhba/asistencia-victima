@@ -156,7 +156,7 @@ function MapOrganization(organization, mapper){
       if (that.mapper.lastInfoWindow) that.mapper.lastInfoWindow.close();
       that.infoWindow.open(map, that.marker);
       that.mapper.lastInfoWindow = that.infoWindow;
-      //$("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
+      // $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
     });
   };
   this.drawOn = function(map){
@@ -198,11 +198,11 @@ $(document).ready(function(){
       searcher.exec(cad);
     }
   });
-  */
   $("a.organization").live("click", function(event){
     event.preventDefault();
     var $this = $(this);
     newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
     map.setCenter(newCenter);
   });
+  */
 });
