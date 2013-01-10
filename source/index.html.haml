@@ -20,7 +20,7 @@ title: Mapa de asistencia a las víctimas
         %i
           Ej: Av. Rivadavia 1843, Buenos Aires
     .row
-      .twelve.columns#results
+      .twelve.columns#results.results
         %p
           Si fuiste víctima de violencia policial o de algún agente estatal, si sufriste abusos graves contra tu integridad, estás en riesgo o viviste un hecho traumático, el Estado Nacional pone a tu alcance y el de tu entono social una completa guía de servicios gratuitos de asistencia a la víctima. Muchos los brinda el Estado nacional, provincias y municipios, pero también universidades públicas y privadas, ONGs y colegios profesionales en diferentes puntos del país. Buscá el más próximo a donde estás. Entre todos te vamos a ayudar.
         %h4 Pasos
@@ -161,17 +161,37 @@ title: Mapa de asistencia a las víctimas
   :plain
     <h4>Resultados</h4>
     <% _.each(results, function(result){ %>
-    <section class='infowindow'>
-      <article>
-        <ul>
-          <li>
-            <br />
-            <%= result.name %>
-            <br />
-            <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
-          </li>
-        </ul>
-      </article>
+    <section class='result'>
+      <ul>
+        <li>
+          <% if(!isBlank(result.web)){ %>
+          <a href="<%= result.web %>"><%= result.name %></a>
+          <% } else { %>
+          <%= result.name %>
+          <% } %>
+        </li>
+        <% if(!isBlank(result.phone)){ %>
+          <li><%= result.phone %></li>
+        <% } %>
+        <% if(!isBlank(result.address)){ %>
+          <li><%= result.address %></li>
+        <% } %>
+        <% if(!isBlank(result.state)){ %>
+          <li><%= result.state %></li>
+        <% } %>
+        <% if(!isBlank(result.email)){ %>
+          <li><%= result.email %></li>
+        <% } %>
+        <% if(!isBlank(result.service_days)){ %>
+          <li><%= result.service_days %></li>
+        <% } %>
+        <% if(!isBlank(result.service_hours)){ %>
+          <li><%= result.service_hours %></li>
+        <% } %>
+        <li>
+          <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
+        </li>
+      </ul>
     </section>
     <% }); %>
 %script#geoResultsTemplate{:type => "text/template"}

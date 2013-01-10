@@ -34,20 +34,28 @@ function FusionProxy(fusion_id){
       var lat = result.geo.split(", ")[0];
       var lng = result.geo.split(", ")[1];
       return {
-        name:          result["Organismo"],
-        address:       result["Dirección postal"],
-        city:          result["Localidad"],
-        phone:         result["Teléfono"],
-        email:         result["email"],
-        web:           result["web"],
-        state:         result["Localidad"],
-        service_days:  result["Días de atención"],
-        service_hours: result["Horarios"],
-        icon:          that.iconSelector(result),
-        latLng:        new google.maps.LatLng(lat, lng)
+        name:              result["Organismo"],
+        address:           result["Dirección postal"],
+        city:              result["Localidad"],
+        phone:             result["Teléfono"],
+        email:             result["email"],
+        web:               result["web"],
+        state:             result["Localidad"],
+        service_days:      result["Días de atención"],
+        service_hours:     result["Horarios"],
+        services_provided: that.formatServices(result),
+        icon:              that.iconSelector(result),
+        latLng:            new google.maps.LatLng(lat, lng)
       }
     });
     return this.data;
+  };
+  this.formatServices = function(result){
+    if(isBlank(result["Servicio 2"])){
+      return result["Servicio 1"];
+    } else {
+      return result["Servicio 1"] + ", " + result["Servicio 2"];
+    }
   };
   this.iconSelector = function(organization){
     if (organization["Servicio 1"].length > 0 && organization["Servicio 2"].length > 0){
@@ -176,7 +184,7 @@ function Searcher(map){
     this.results = _.filter(this.organizations, function(organization){
       return (organization.name.search(reg_q) !== -1)
           || (organization.address.search(reg_q) !== -1)
-          //|| (organization.services_offered.search(reg_q) !== -1)
+          || (organization.services_provided.search(reg_q) !== -1)
     });
     this.results = _.uniq(this.results);
     this.drawResults();
@@ -192,7 +200,7 @@ $(document).ready(function(){
   var mapper = new Mapper("map_canvas");
   var fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
   var geoLocalizator = new GeoLocalizator();
-  var searcher = new Searcher(mapper);
+  searcher = new Searcher(mapper);
 
   mapper.init();
   fusionProxy.getData(function(organizations){
