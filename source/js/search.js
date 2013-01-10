@@ -124,47 +124,47 @@ function Mapper(selector) {
 function MapOrganization(organization, mapper){
   this.organization = organization;
   this.mapper = mapper;
-  this.addInfowindow = function(map){
-    var that = this;
-    var infowindow =  new google.maps.InfoWindow({
-      content: Mustache.render(markers.template, organization),
-      maxWidth: 300
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-      if (lastInfowindow) lastInfowindow.close();
-      infowindow.open(map, marker);
-      lastInfowindow = infowindow;
-      $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
-    });
-  };
-  this.generateMarker = function(map){
-    this.marker = new google.maps.Marker({
-        position: this.organization.latLng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: this.organization.title,
-        icon: this.organization.icon
-    });
-  };
-  this.generateInfowindow = function(map){
-    var that = this;
-    this.infoWindow = new google.maps.InfoWindow({
-      content: this.infowindowTemplate(this.organization),
-      maxWidth: 300
-    });
-    google.maps.event.addListener(this.marker, 'click', function() {
-      if (that.mapper.lastInfoWindow) that.mapper.lastInfoWindow.close();
-      that.infoWindow.open(map, that.marker);
-      that.mapper.lastInfoWindow = that.infoWindow;
-      // $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
-    });
-  };
-  this.drawOn = function(map){
-    this.generateMarker(map);
-    this.generateInfowindow(map);
-  };
   this.infowindowTemplate = _.template($("#infowindowTemplate").html());
-}
+};
+MapOrganization.prototype.addInfowindow = function(map){
+  var that = this;
+  var infowindow =  new google.maps.InfoWindow({
+    content: Mustache.render(markers.template, organization),
+    maxWidth: 300
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    if (lastInfowindow) lastInfowindow.close();
+    infowindow.open(map, marker);
+    lastInfowindow = infowindow;
+    $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
+  });
+};
+MapOrganization.prototype.generateMarker = function(map){
+  this.marker = new google.maps.Marker({
+      position: this.organization.latLng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      title: this.organization.title,
+      icon: this.organization.icon
+  });
+};
+MapOrganization.prototype.generateInfowindow = function(map){
+  var that = this;
+  this.infoWindow = new google.maps.InfoWindow({
+    content: this.infowindowTemplate(this.organization),
+    maxWidth: 300
+  });
+  google.maps.event.addListener(this.marker, 'click', function() {
+    if (that.mapper.lastInfoWindow) that.mapper.lastInfoWindow.close();
+    that.infoWindow.open(map, that.marker);
+    that.mapper.lastInfoWindow = that.infoWindow;
+    // $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
+  });
+};
+MapOrganization.prototype.drawOn = function(map){
+  this.generateMarker(map);
+  this.generateInfowindow(map);
+};
 
 function Searcher(map){
   this.map = map;
