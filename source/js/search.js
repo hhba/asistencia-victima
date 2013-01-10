@@ -209,14 +209,13 @@ $(document).ready(function(){
     event.preventDefault();
     searcher.exec($('#inputSearch').val());
   });
-  /*
-  $('#inputSearch').change(function(event){
-    event.preventDefault();
+  $('#inputSearch').keypress(function(event){
     var cad = $(this).val();
-    if(cad.length > 1){
-      searcher.exec(cad);
+    if(!isBlank(cad) && cad.length > 3){
+      searcher.search(cad);
     }
   });
+  /*
   $("a.organization").live("click", function(event){
     event.preventDefault();
     var $this = $(this);
