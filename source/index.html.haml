@@ -159,19 +159,21 @@ title: Mapa de asistencia a las víctimas
     </section>
 %script#resultsTemplate{:type => "text/template"}
   :plain
+    <h4>Resultados</h4>
+    <% _.each(results, function(result){ %>
     <section class='infowindow'>
       <article>
         <ul>
           <li>
-            <img src='/<%= icon %>' />
             <br />
-            <%= name %> - <%= service_offered %> - <%= address %>
+            <%= result.name %>
             <br />
-            <a class='organization' data-latitude='<%= latitude %>' data-longitude='<%= longitude %>' href='#'>Ver en el mapa</a>
+            <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
           </li>
         </ul>
       </article>
     </section>
+    <% }); %>
 %script#geoResultsTemplate{:type => "text/template"}
   :plain
     <section class='infowindow'>
@@ -185,3 +187,4 @@ title: Mapa de asistencia a las víctimas
         </ul>
       </article>
     </section>
+

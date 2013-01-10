@@ -168,10 +168,28 @@ MapOrganization.prototype.drawOn = function(map){
 
 function Searcher(map){
   this.map = map;
-}
+  this.template = _.template($("#resultsTemplate").html());
+  this.resultsBox = $("#results");
+  this.search = function(cad){
+    var reg_q = new RegExp(cad, "i");
+    // this.geocoder.geocode({ 'address': cad }, this.geocoderSearch);
+    this.results = _.filter(this.organizations, function(organization){
+      return (organization.name.search(reg_q) !== -1)
+          || (organization.address.search(reg_q) !== -1)
+          //|| (organization.services_offered.search(reg_q) !== -1)
+    });
+    this.results = _.uniq(this.results);
+    this.drawResults();
+  };
+  this.geocoderSearch = function(results, status){
+  };
+  this.drawResults = function(){
+    this.resultsBox.html(this.template({ results: this.results }));
+  }
+};
 
 $(document).ready(function(){
-  mapper = new Mapper("map_canvas");
+  var mapper = new Mapper("map_canvas");
   var fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
   var geoLocalizator = new GeoLocalizator();
   var searcher = new Searcher(mapper);
@@ -180,6 +198,7 @@ $(document).ready(function(){
   fusionProxy.getData(function(organizations){
     mapper.addOrganizations(organizations);
     mapper.drawOrganizations();
+    searcher.organizations = organizations;
   });
   geoLocalizator.currentPosition(function(position){
     mapper.centerMap(position);
