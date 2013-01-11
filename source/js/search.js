@@ -251,12 +251,10 @@ $(document).ready(function(){
       searcher.search(cad);
     }
   });
-  /*
-  $("a.organization").live("click", function(event){
+  $("a.organization_point").live("click", function(event){
     event.preventDefault();
     var $this = $(this);
-    newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
-    map.setCenter(newCenter);
+    var newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
+    mapper.setCenter(newCenter);
   });
-  */
 });
