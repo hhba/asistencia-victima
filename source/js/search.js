@@ -45,7 +45,9 @@ function FusionProxy(fusion_id){
         service_hours:     result["Horarios"],
         services_provided: that.formatServices(result),
         icon:              that.iconSelector(result),
-        latLng:            new google.maps.LatLng(lat, lng)
+        latLng:            new google.maps.LatLng(lat, lng),
+        latitude:          lat,
+        longitude:         lng
       }
     });
     return this.data;
@@ -255,6 +257,6 @@ $(document).ready(function(){
     event.preventDefault();
     var $this = $(this);
     var newCenter = new google.maps.LatLng($this.data("latitude"), $this.data("longitude"));
-    mapper.setCenter(newCenter);
+    mapper.centerMap(newCenter);
   });
 });
