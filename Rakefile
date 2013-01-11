@@ -1,6 +1,6 @@
 SSH_USER = 'malev'
 SSH_HOST = 'www.grouppet.com.ar'
-SSH_DIR  = '/home/malev/apps/beta'
+SSH_DIR  = '/home/malev/apps/asistencia.grouppet.com.ar'
 
 desc "Build the website from source"
 task :build do
