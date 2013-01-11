@@ -166,7 +166,6 @@ MapOrganization.prototype.generateInfowindow = function(map){
     if (that.mapper.lastInfoWindow) that.mapper.lastInfoWindow.close();
     that.infoWindow.open(map, that.marker);
     that.mapper.lastInfoWindow = that.infoWindow;
-    // $("#results").html(Mustache.render(markers.moreInfoTemplate, organization));
   });
 };
 MapOrganization.prototype.drawOn = function(map){
@@ -178,18 +177,47 @@ function Searcher(map){
   this.map = map;
   this.template = _.template($("#resultsTemplate").html());
   this.resultsBox = $("#results");
+  this.geocoder = new google.maps.Geocoder();
   this.search = function(cad){
     var reg_q = new RegExp(cad, "i");
-    // this.geocoder.geocode({ 'address': cad }, this.geocoderSearch);
+    var that = this;
+    this.geocoder.geocode({ 'address': cad + ", Argentina" }, function(results, status){
+      that.geocoderSearch(results, status);
+    });
     this.results = _.filter(this.organizations, function(organization){
       return (organization.name.search(reg_q) !== -1)
           || (organization.address.search(reg_q) !== -1)
           || (organization.services_provided.search(reg_q) !== -1)
     });
     this.results = _.uniq(this.results);
-    this.drawResults();
   };
   this.geocoderSearch = function(results, status){
+    switch(results.length){
+      case 0:
+        break;
+      case 1:
+        this.results.reverse();
+        this.results.push({
+          partial: "address",
+          address: results[0].formatted_address,
+          latitude: results[0].geometry.location.lat(),
+          longitude: results[0].geometry.location.lng()
+        });
+        this.results.reverse();
+        break;
+      default:
+        this.results = this.results.concat(
+          _.map(results, function(result){
+            return {
+              partial: "address",
+              address: result.formatted_address,
+              latitude: result.geometry.location.lat(),
+              longitude: result.geometry.location.lng()
+            };
+          })
+        );
+    }
+    this.drawResults();
   };
   this.drawResults = function(){
     this.resultsBox.html(this.template({ results: this.results }));

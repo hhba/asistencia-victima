@@ -161,50 +161,49 @@ title: Mapa de asistencia a las víctimas
   :plain
     <h4>Resultados</h4>
     <% _.each(results, function(result){ %>
-    <section class='result'>
-      <ul>
-        <li>
-          <% if(!isBlank(result.web)){ %>
-          <a href="<%= result.web %>"><%= result.name %></a>
-          <% } else { %>
-          <%= result.name %>
-          <% } %>
-        </li>
-        <% if(!isBlank(result.phone)){ %>
-          <li><%= result.phone %></li>
-        <% } %>
-        <% if(!isBlank(result.address)){ %>
-          <li><%= result.address %></li>
-        <% } %>
-        <% if(!isBlank(result.state)){ %>
-          <li><%= result.state %></li>
-        <% } %>
-        <% if(!isBlank(result.email)){ %>
-          <li><%= result.email %></li>
-        <% } %>
-        <% if(!isBlank(result.service_days)){ %>
-          <li><%= result.service_days %></li>
-        <% } %>
-        <% if(!isBlank(result.service_hours)){ %>
-          <li><%= result.service_hours %></li>
-        <% } %>
-        <li>
-          <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
-        </li>
-      </ul>
-    </section>
+      <% if(result.hasOwnProperty("partial") && result.partial === "address"){ %>
+        <section class='result address'>
+          <ul>
+            <li>
+              <%= result.address %>
+              <br />
+              <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
+            </li>
+          </ul>
+        </section>
+      <% } else { %>
+        <section class='result organization'>
+          <ul>
+            <li>
+              <% if(!isBlank(result.web)){ %>
+              <a href="<%= result.web %>"><%= result.name %></a>
+              <% } else { %>
+              <%= result.name %>
+              <% } %>
+            </li>
+            <% if(!isBlank(result.phone)){ %>
+              <li><%= result.phone %></li>
+            <% } %>
+            <% if(!isBlank(result.address)){ %>
+              <li><%= result.address %></li>
+            <% } %>
+            <% if(!isBlank(result.state)){ %>
+              <li><%= result.state %></li>
+            <% } %>
+            <% if(!isBlank(result.email)){ %>
+              <li><%= result.email %></li>
+            <% } %>
+            <% if(!isBlank(result.service_days)){ %>
+              <li><%= result.service_days %></li>
+            <% } %>
+            <% if(!isBlank(result.service_hours)){ %>
+              <li><%= result.service_hours %></li>
+            <% } %>
+            <li>
+              <a class='organization' data-latitude='<%= result.latitude %>' data-longitude='<%= result.longitude %>' href='#'>Ver en el mapa</a>
+            </li>
+          </ul>
+        </section>
+      <% } %>
     <% }); %>
-%script#geoResultsTemplate{:type => "text/template"}
-  :plain
-    <section class='infowindow'>
-      <article>
-        <ul>
-          <li>
-            <%= address %>
-            <br />
-            <a class='organization' data-latitude='<%= latitude %>' data-longitude='<%= longitude %>' href='#'>Ver en el mapa</a>
-          </li>
-        </ul>
-      </article>
-    </section>
 
