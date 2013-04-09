@@ -159,7 +159,7 @@ title: Mapa de asistencia a las víctimas
     </section>
 %script#resultsTemplate{:type => "text/template"}
   :plain
-    <h4>Resultados</h4>
+    <h4>Resultados (<%= results.length %>)</h4>
     <% _.each(results, function(result){ %>
       <% if(result.hasOwnProperty("partial") && result.partial === "address"){ %>
         <section class='result address'>
