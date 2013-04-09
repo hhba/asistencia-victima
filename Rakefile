@@ -1,5 +1,5 @@
 SSH_USER = 'malev'
-SSH_HOST = 'www.grouppet.com.ar'
+SSH_HOST = '192.81.216.236'
 SSH_DIR  = '/home/malev/apps/asistencia.grouppet.com.ar'
 
 desc "Build the website from source"
