@@ -43,7 +43,7 @@ title: Mapa de asistencia a las víctimas
     %ul.tabs-content
       %li#simple1Tab.active
         .twelve.columns.mobile-four
-          #fusion-information{:data => {:fusion => data.config.fusion}}
+          #fusion-information{:data => {:fusion => data.config.fusion, api: data.config.gm}}
           #map_canvas
       %li#simple2Tab
         .row

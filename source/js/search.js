@@ -20,17 +20,18 @@ function GeoLocalizator() {
   };
 }
 
-function FusionProxy(fusion_id){
+function FusionProxy(fusion_id, apiKey){
   this.fusion_id = fusion_id;
+  this.apiKey = apiKey;
   this.getData = function(callback){
     var that = this;
-    ft2json.query('SELECT * FROM ' + this.fusion_id, function(results){
+    ftToJSON('SELECT * FROM ' + this.fusion_id, this.apiKey, function(results){
       callback(that.formatter(results));
     });
   };
   this.formatter = function(results){
     var that = this;
-    this.data = _.map(results.data, function(result){
+    this.data = _.map(results, function(result){
       var lat = result.geo.split(", ")[0];
       var lng = result.geo.split(", ")[1];
       return {
@@ -228,7 +229,10 @@ function Searcher(map){
 
 $(document).ready(function(){
   var mapper = new Mapper("map_canvas");
-  var fusionProxy = new FusionProxy($("#fusion-information").data("fusion"));
+  var fusionProxy = new FusionProxy(
+    $("#fusion-information").data("fusion"),
+    $("#fusion-information").data("api")
+  );
   var geoLocalizator = new GeoLocalizator();
   searcher = new Searcher(mapper);
 

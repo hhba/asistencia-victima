@@ -19,6 +19,6 @@
 =require foundation/app
 
 =require underscore
-=require ft2json
+=require fttojson
 =require search
 */
